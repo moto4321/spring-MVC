@@ -37,8 +37,9 @@ public class FrontControllerServletV4 extends HttpServlet {
             return;
         }
 
+        System.out.println("@@@@" + controller);
         Map<String, String> paramMap = createParamMap(request);
-        Map<String, Object> model = new HashMap<>(); // 추가
+        Map<String, Object> model = new HashMap<>(); // V4에서 추가
 
         String viewName = controller.process(paramMap, model);
 
@@ -54,7 +55,13 @@ public class FrontControllerServletV4 extends HttpServlet {
     private static Map<String, String> createParamMap(HttpServletRequest request) {
         Map<String, String> paramMap = new HashMap<>();
         request.getParameterNames().asIterator()
-                .forEachRemaining(paramName -> paramMap.put(paramName, request.getParameter(paramName)));
+                .forEachRemaining(paramName ->
+                    {
+                        paramMap.put(paramName, request.getParameter(paramName));
+                        System.out.println("!!!!" + paramName);
+                    }
+                );
+
         return paramMap;
     }
 }
